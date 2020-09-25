@@ -45,6 +45,6 @@ public class MainTest {
 //        test.count();
 
         new CityDAO().insertQuick(new CityGenerator().generate(1, 1000));
-        new CountryDAO().insert(new CountryGenerator().generate(1,10));
+        new CountryDAO().insert(new CountryGenerator().generate(1, 10));
     }
 }

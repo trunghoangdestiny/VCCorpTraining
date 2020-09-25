@@ -50,11 +50,6 @@ public class CityDAO {
         return cityList;
     }
 
-    public static void main(String[] args) {
-        CityDAO cityDAO = new CityDAO();
-        cityDAO.getCitiesByCodeCountry("VN2020").stream().forEach(city -> System.out.println(city));
-    }
-
     public List<City> getCitiesByContinent(String continent) {
         List<City> cityList = new ArrayList<>();
         try {
@@ -91,23 +86,34 @@ public class CityDAO {
         return city;
     }
 
-    public void insert(City city) {
+    public void insert(City city) throws SQLException {
         String sql = "INSERT INTO `mydatabase`.`city` (`id`, `name`, `population`, `codeCountry`) VALUES (?, ?, ?, ?);";
+
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            connection.setAutoCommit(false);
+
             preparedStatement.setInt(1, city.getId());
             preparedStatement.setString(2, city.getName());
             preparedStatement.setInt(3, city.getPopulation());
             preparedStatement.setString(4, city.getCodeCountry());
-
             preparedStatement.executeUpdate();
+
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            connection.rollback();
         }
     }
 
     public void insertSlow(List<City> cityList) {
-        cityList.forEach(city -> insert(city));
+        cityList.forEach(city -> {
+            try {
+                insert(city);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void insertQuick(List<City> cityList) {
