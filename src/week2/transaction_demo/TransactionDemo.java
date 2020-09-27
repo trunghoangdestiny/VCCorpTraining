@@ -13,7 +13,8 @@ public class TransactionDemo {
         connection.setAutoCommit(false); //turn off auto commit mode
 
         try {
-            statement.executeUpdate("UPDATE account_banking SET amount = 40000000.0 WHERE name = 'A'");
+            statement.executeUpdate("UPDATE account_banking SET amount = 20000000.0 WHERE name = 'A'");
+            connection.commit();
             statement.executeUpdate("UPDATE account_banking SET amount = 140000000.0 WHERE name = 'B'");
             connection.commit(); //data just update when this command is called
             System.out.println("Data updated successfully.");

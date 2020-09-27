@@ -3,6 +3,7 @@ package week1.bai4;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+//sinh 30000 diem phan biet, dung set
 
 public class PointGenerator {
     public static void main(String[] args) {

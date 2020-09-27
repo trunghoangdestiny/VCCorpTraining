@@ -7,6 +7,7 @@ import java.util.concurrent.Callable;
 import java.util.stream.Stream;
 
 public class FileReaderCallable implements Callable<LinkedHashMap<String, Integer>> {
+    //doc file va co return nen phai dung Callable
     private String filename;
 
     public FileReaderCallable(String filename) {

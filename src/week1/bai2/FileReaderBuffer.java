@@ -4,12 +4,13 @@ import java.io.*;
 import java.util.*;
 
 public class FileReaderBuffer {
-    public static void main(String[] args) {
-        try {
-            FileReader fileReader = new FileReader("/home/hoangquoctrung/IdeaProjects/File/input.txt");
-            FileWriter fileWriter = new FileWriter("/home/hoangquoctrung/IdeaProjects/File/output.txt");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+    public static void main(String[] args) { //
+        try (
+                FileReader fileReader = new FileReader("/home/hoangquoctrung/IdeaProjects/File/input.txt");
+                FileWriter fileWriter = new FileWriter("/home/hoangquoctrung/IdeaProjects/File/output.txt");
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)
+        ) {
             String str;
             List<String> words = new ArrayList<>();
             while ((str = bufferedReader.readLine()) != null) {
@@ -35,10 +36,6 @@ public class FileReaderBuffer {
                     e.printStackTrace();
                 }
             });
-            bufferedReader.close();
-            fileReader.close();
-            bufferedWriter.close();
-            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

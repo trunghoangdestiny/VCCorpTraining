@@ -113,9 +113,9 @@ public class Query {
     }
 
     public static void main(String[] args) {
-//        new Query().theMostCrowdedCityOfEachCountry();
+        new Query().theMostCrowdedCityOfEachCountry();
 //        new Query().theMostCrowdedCityOfEachContinent2();
 //        new Query().theMostCrowdedCapital();
-        new Query().theMostCrowdedCityIsCapitalOfContinent();
+//        new Query().theMostCrowdedCityIsCapitalOfContinent();
     }
 }
