@@ -1,8 +1,6 @@
 package week1.bai4;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 public class Point {
     private int x;
@@ -60,6 +58,6 @@ public class Point {
                 "x=" + x +
                 ", y=" + y +
                 ", distance=" + distanceToX +
-                '}';
+                "}\n";
     }
 }
