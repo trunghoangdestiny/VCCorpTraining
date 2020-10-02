@@ -2,8 +2,10 @@ package week1.bai3;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.Normalizer;
 import java.util.LinkedHashMap;
 import java.util.concurrent.Callable;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class FileReaderCallable implements Callable<LinkedHashMap<String, Integer>> {
@@ -21,6 +23,7 @@ public class FileReaderCallable implements Callable<LinkedHashMap<String, Intege
         stream.forEach(line -> {
             line = line.replaceAll("[^ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂ" +
                     "ưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\w]", " ");
+            line = removeAccent(line);
             String dataOfEachLine[] = line.split("\\s+");
             for (String data : dataOfEachLine) {
                 if (!data.equals("")) {
@@ -33,5 +36,11 @@ public class FileReaderCallable implements Callable<LinkedHashMap<String, Intege
             }
         });
         return countWords;
+    }
+
+    private static String removeAccent(String s) {
+        String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(temp).replaceAll("");
     }
 }

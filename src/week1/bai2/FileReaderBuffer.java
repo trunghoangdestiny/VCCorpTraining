@@ -1,7 +1,9 @@
 package week1.bai2;
 
 import java.io.*;
+import java.text.Normalizer;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class FileReaderBuffer {
     public static void main(String[] args) { //
@@ -16,7 +18,9 @@ public class FileReaderBuffer {
             while ((str = bufferedReader.readLine()) != null) {
                 str = str.replaceAll("[^ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂ" +
                         "ưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\w]", " ");
-                Arrays.stream(str.split("\\s+")).forEach(s -> {
+                str = removeAccent(str);
+                Arrays.stream(str.split("\\s+")).filter(s -> !"".equals(s)).forEach(s -> {
+                    s = s.toLowerCase();
                     words.add(s);
                 });
             }
@@ -39,5 +43,11 @@ public class FileReaderBuffer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String removeAccent(String s) {
+        String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(temp).replaceAll("");
     }
 }
